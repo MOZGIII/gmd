@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<%= Gmd.layout_meta_tags %>
+<script type="text/javascript">
+<%= Dir[File.dirname(__FILE__) + "/js/*.js"].map {|f| File.read(f)}.join %>
+</script>
+<style>
+<%= File.read(File.dirname(__FILE__) + "/highlight.css") %>
+<%= File.read(File.dirname(__FILE__) + "/style.css") %>
+</style>
+</script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="content" class="site">
+    <div class="content">
+
+      <%= yield %>
+
+    </div><!-- /.content -->
+  </div><!--/#content .site -->
+</div><!-- /#wrapper -->
+</body>
+</html>

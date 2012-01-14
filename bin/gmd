@@ -54,7 +54,17 @@ locals = {}
 
 # output = Tilt.new(file).render(self, locals)
 # Use redcarpet here directly
-output = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(File.read(file))
+output = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+                                  :no_intra_emphasis => true,
+                                  :tables => true,
+                                  :fenced_code_blocks => true,
+                                  :autolink => true,
+                                  :strikethrough => true,
+                                  :lax_html_blocks => true,
+                                  :space_after_headers => true,
+                                  :superscript => true
+                                ).render(File.read(file))
+
 output = Tilt.new(layout).render(self, locals) { output } if layout
 
 File.open(output_file, "wb") { |f| f.write(output) }
