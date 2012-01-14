@@ -37,11 +37,6 @@ h2 {
   margin: 2em auto 1em;
 }
 
-  body.api .content h2 {
-    background: transparent url(../images/crud-sprite.png) left 2px no-repeat;
-    padding-left: 22px;
-  }
-
 h2 span.step {
   color: #666;
 }
@@ -309,9 +304,6 @@ span.codeline span {
   right: 0px;
   top: 0px;
   text-indent: -9999px;
-  background-image: url(../images/qmark.png);
-  background-repeat: no-repeat;
-  background-position: 1px 3px;
   max-width: 8px;
   min-width: 8px;
   -moz-user-select: none;
