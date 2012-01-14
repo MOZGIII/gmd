@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-#encoding: utf-8
+# coding: utf-8
+Encoding.default_external = "UTF-8"
+Encoding.default_internal = "UTF-8"
 require 'optparse'
 require 'gmd'
 
@@ -55,4 +57,4 @@ locals = {}
 output = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(File.read(file))
 output = Tilt.new(layout).render(self, locals) { output } if layout
 
-File.open(output_file, "w") { |f| f.write(output) }
+File.open(output_file, "wb") { |f| f.write(output) }
