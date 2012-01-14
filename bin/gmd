@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+#encoding: utf-8
+require 'optparse'
+require 'gmd'
+
+usage = <<USAGE
+Usage: gmd <options> <file>
+
+Options
+-l, --layout=<file> Use <file> as a layout template
+-o, --output=<file> Save output to <file> instead
+                      of using source file name with
+                      .html extenstion
+
+-h, --help Show this help message
+
+USAGE
+
+script_name = File.basename($0)
+layout = nil
+output_file = nil
+
+ARGV.options do |o|
+  o.program_name = script_name
+
+  o.on("-l", "--layout=FILE", String) do |file|
+    layout = Gmd::choose_file_from_paths(Gmd::get_layout_paths(file))
+    abort "no such layout: #{file}" if layout.nil?
+  end
+
+  o.on("-o", "--output=FILE", String) do |file|
+    output_file = file
+  end
+
+  o.on_tail("-h", "--help") { puts usage; exit }
+
+  o.parse!
+end
+
+file = ARGV.first
+
+unless file
+  puts usage
+  exit
+end
+
+layout = Gmd::default_layout unless layout
+
+output_file = file.gsub(/\.(md|markdown)\z/, '') + '.html' unless output_file
+
+locals = {}
+
+# output = Tilt.new(file).render(self, locals)
+# Use redcarpet here directly
+output = Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(File.read(file))
+output = Tilt.new(layout).render(self, locals) { output } if layout
+
+File.open(output_file, "w") { |f| f.write(output) }
