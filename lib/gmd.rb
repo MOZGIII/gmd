@@ -13,6 +13,8 @@ module Gmd
         "layouts/#{file}",
         "~/.gmd/#{file}",
         File.join(defalut_layouts_dir, file),
+        "~/.tilt/#{file}",
+        "/etc/tilt/#{file}"
       ]
     end
 
