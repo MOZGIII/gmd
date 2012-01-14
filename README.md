@@ -31,4 +31,4 @@ Built-in layouts:
   + *github* - something similar to new GitHub style
   + *metal* - something like older GitHub style
 
-Actually, the deafult style is also (very very old) GitHub style ;)
+Actually, the deafult style is also (a very very old) GitHub style ;)

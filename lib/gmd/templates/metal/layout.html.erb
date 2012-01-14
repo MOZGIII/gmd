@@ -2,8 +2,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%= Gmd.layout_meta_tags %>
-<script src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
-<link rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/github.min.css">
+<script type="text/javascript"><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/highlight.pack.js") %></script>
+<style><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/github.css") %></style>
 <style>
 body {background-color:#f8f8f8;font-family:Helvetica;}
 h1,h2,h3,h4,h5,h6{border:0;}

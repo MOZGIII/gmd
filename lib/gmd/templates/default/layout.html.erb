@@ -2,8 +2,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%= Gmd.layout_meta_tags %>
-<script src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
-<link rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/github.min.css">
+<script type="text/javascript"><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/highlight.pack.js") %></script>
+<style><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/github.css") %></style>
 <style>
 /*
 Some simple Github-like styles.
@@ -63,6 +63,10 @@ h3{
   -webkit-box-shadow:0 5px 15px #000;
   -moz-box-shadow:0 5px 15px #000;
   box-shadow:0 5px 15px #000;
+}
+pre code {
+  background: #f8f8ff;
+  color: #000;
 }
 </style>
 <script type="text/javascript">

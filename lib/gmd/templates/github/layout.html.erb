@@ -2,11 +2,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%= Gmd.layout_meta_tags %>
-<script type="text/javascript">
-<%= Dir[File.dirname(__FILE__) + "/js/*.js"].map {|f| File.read(f)}.join %>
-</script>
+<script type="text/javascript"><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/highlight.pack.js") %></script>
+<style><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/github.css") %></style>
 <style>
-<%= File.read(File.dirname(__FILE__) + "/highlight.css") %>
 <%= File.read(File.dirname(__FILE__) + "/style.css") %>
 </style>
 </script>

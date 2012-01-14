@@ -221,6 +221,8 @@ ul + pre {
 
 pre code {white-space: pre;}
 
+pre code {padding: 0;}
+
 pre span.comment {color: #aaa;}
 
 pre.headers {
