@@ -57,5 +57,19 @@ module Gmd
       Tilt.new(filepath).render.force_encoding("UTF-8")
     end
 
+    def escape_markdown(str)
+      symbols = "\\`*_{}[]()#+-.!".split('')
+      symbols.each { |s| str.gsub!(s, "\\" + s) }
+      str
+    end
+
+    def fix_latex(str)
+      inline_exp = /(([^\$]\${1}[^\$].*?[^\$]?\${1}[^\$]))/
+      multline_exp = /((\\begin\{(\w+?)\}.+?\\end\{\3\})|(\$\$.+?\$\$))/m
+      str.gsub!(multline_exp) { |s| escape_markdown($1) }
+      str.gsub!(inline_exp) { |s| escape_markdown($1) }
+      str
+    end
+
   end
 end

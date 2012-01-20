@@ -62,8 +62,8 @@ output = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
                                   :strikethrough => true,
                                   :lax_html_blocks => true,
                                   :space_after_headers => true,
-                                  :superscript => true
-                                ).render(File.read(file))
+                                  :superscript => false
+                                ).render(Gmd::fix_latex(File.read(file)))
 
 output = Tilt.new(layout).render(self, locals) { output } if layout
 
