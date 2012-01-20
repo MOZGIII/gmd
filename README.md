@@ -34,12 +34,13 @@ Built-in layouts:
 Actually, the deafult style is also (a very very old) GitHub style ;)
 
 
-TeX formulas
-------------
+TeX-based math
+--------------
 
-gmd support TeX formulas!
+gmd supports TeX formulas!
+Just use `$ ... $` for inline math and `$$ ... $$` for display math.
 
-    An inline formula here: $e^{i\pi} = -1$. Awesome!
+    An inline math here: $e^{i\pi} = -1$. Awesome!
 
     $$
     \left( \sum_{k=1}^n a_k b_k \right)^{\!\!2} \leq
