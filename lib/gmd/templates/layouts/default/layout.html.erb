@@ -2,8 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <%= Gmd.layout_meta_tags %>
-<script type="text/javascript"><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/highlight.pack.js") %></script>
-<style><%= File.read(File.dirname(__FILE__) + "/../common/highlight_js/github.css") %></style>
+<%= Gmd.load_common(:header) %>
 <style>
 /*
 Some simple Github-like styles.
@@ -69,9 +68,6 @@ pre code {
   color: #000;
 }
 </style>
-<script type="text/javascript">
-hljs.initHighlightingOnLoad();
-</script>
 </head>
 <body>
 <%= yield %>

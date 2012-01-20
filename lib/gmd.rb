@@ -32,11 +32,7 @@ module Gmd
     end
 
     def default_layouts_dir
-      File.join(
-        File.dirname(__FILE__),
-        "gmd",
-        "templates"
-      )
+      File.dirname(__FILE__) + "/gmd/templates/layouts"
     end
 
     def default_layout
@@ -47,6 +43,18 @@ module Gmd
       <<-METATAGS
         <meta name="generator" content="gmd #{Gmd::VERSION}">
       METATAGS
+    end
+
+    # Used to load files from templates/common/ dir
+    def load_common(file)
+      paths = [
+        File.dirname(__FILE__) + "/gmd/templates/common/#{file}",
+        File.dirname(__FILE__) + "/gmd/templates/common/#{file}.html.erb",
+        File.dirname(__FILE__) + "/gmd/templates/common/#{file}.erb"
+      ]
+      filepath = choose_file_from_paths(paths)
+      raise "Unable to find file: #{file}" unless filepath
+      Tilt.new(filepath).render.force_encoding("UTF-8")
     end
 
   end

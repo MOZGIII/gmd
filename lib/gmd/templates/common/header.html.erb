@@ -1,0 +1,14 @@
+<%# jQuery %>
+<script type="text/javascript"><%= File.read(File.dirname(__FILE__) + "/jquery/jquery-1.7.1.min.js") %></script>
+
+<%# Common highlighting %>
+<script type="text/javascript"><%= File.read(File.dirname(__FILE__) + "/highlight_js/highlight.pack.js") %></script>
+<style><%= File.read(File.dirname(__FILE__) + "/highlight_js/github.css") %></style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('pre code').each(function(i, e) {
+    if (e.className)
+      hljs.highlightBlock(e, hljs.tabReplace);
+  });
+});
+</script>
