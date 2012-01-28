@@ -14,23 +14,25 @@ $(document).ready(function() {
 </script>
 
 <%# MathJax %>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  jax: ["input/TeX","output/HTML-CSS"],
-  extensions: ["tex2jax.js"],
-  tex2jax: {
-    element: null,
-    inlineMath: [
-      ['$','$']
-    ],
-    displayMath: [
-      ['$$','$$']
-    ],
-    skipTags: ["script","noscript","style","textarea","pre","code"],
-    processEscapes: false,
-    processEnvironments: true,
-    preview: "TeX"
-  }
-});
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<% if locals[:options][:use_tex] %>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+	  jax: ["input/TeX","output/HTML-CSS"],
+	  extensions: ["tex2jax.js"],
+	  tex2jax: {
+		element: null,
+		inlineMath: [
+		  ['$','$']
+		],
+		displayMath: [
+		  ['$$','$$']
+		],
+		skipTags: ["script","noscript","style","textarea","pre","code"],
+		processEscapes: false,
+		processEnvironments: true,
+		preview: "TeX"
+	  }
+	});
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<% end %>

@@ -9,18 +9,20 @@ usage = <<USAGE
 Usage: gmd <options> <file>
 
 Options
--l, --layout=<file> Use <file> as a layout template
--o, --output=<file> Save output to <file> instead
-                      of using source file name with
-                      .html extenstion
+-l, --layout=<file>    Use <file> as a layout template
+-o, --output=<file>    Save output to <file> instead of using source file 
+                         name with .html extenstion
 
--h, --help Show this help message
+-h, --help             Show this help message
 
 USAGE
 
 script_name = File.basename($0)
 layout = nil
 output_file = nil
+options = {
+	:use_tex => false
+}
 
 ARGV.options do |o|
   o.program_name = script_name
@@ -50,7 +52,7 @@ layout = Gmd::default_layout unless layout
 
 output_file = file.gsub(/\.(md|markdown)\z/, '') + '.html' unless output_file
 
-locals = {}
+Gmd::locals[:options] = options
 
 # output = Tilt.new(file).render(self, locals)
 # Use redcarpet here directly
@@ -63,8 +65,8 @@ output = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
                                   :lax_html_blocks => true,
                                   :space_after_headers => true,
                                   :superscript => false
-                                ).render(Gmd::fix_latex(File.read(file)))
+                                ).render(File.read(file))
 
-output = Tilt.new(layout).render(self, locals) { output } if layout
+output = Tilt.new(layout).render(self, Gmd::locals) { output } if layout
 
 File.open(output_file, "wb") { |f| f.write(output) }

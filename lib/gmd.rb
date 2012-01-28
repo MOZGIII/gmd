@@ -5,7 +5,7 @@ require "erb"
 
 module Gmd
   class << self
-
+  
     def get_layout_paths(file)
       [
         file,
@@ -54,7 +54,7 @@ module Gmd
       ]
       filepath = choose_file_from_paths(paths)
       raise "Unable to find file: #{file}" unless filepath
-      Tilt.new(filepath).render.force_encoding("UTF-8")
+      Tilt.new(filepath).render(self, locals).force_encoding("UTF-8")
     end
 
     def escape_markdown(str)
@@ -69,6 +69,10 @@ module Gmd
       str.gsub!(multline_exp) { |s| escape_markdown($1) }
       str.gsub!(inline_exp) { |s| escape_markdown($1) }
       str
+    end
+    
+    def locals
+      @locals ||= {}
     end
 
   end
