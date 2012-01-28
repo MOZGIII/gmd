@@ -2,6 +2,8 @@ require "gmd/version"
 require "tilt"
 require "redcarpet"
 require "erb"
+require "gmd/helpers"
+require "gmd/redcarpet_template_fix"
 
 module Gmd
   class << self
@@ -54,15 +56,18 @@ module Gmd
       ]
       filepath = choose_file_from_paths(paths)
       raise "Unable to find file: #{file}" unless filepath
-      Tilt.new(filepath).render(self, locals).force_encoding("UTF-8")
+      tilt_render(filepath)
     end
 
+    # Escapes all markdown symbols found
     def escape_markdown(str)
       symbols = "\\`*_{}[]()#+-.!".split('')
       symbols.each { |s| str.gsub!(s, "\\" + s) }
       str
     end
 
+    # Used to find and autoescape LaTeX in Markdown files
+    # NOT SAFE YET! DO NO USE THIS!
     def fix_latex(str)
       inline_exp = /(([^\$]\${1}[^\$].*?[^\$]?\${1}[^\$]))/
       multline_exp = /((\\begin\{(\w+?)\}.+?\\end\{\3\})|(\$\$.+?\$\$))/m
@@ -71,9 +76,52 @@ module Gmd
       str
     end
     
-    def locals
-      @locals ||= {}
+    def var
+      @var ||= {}
     end
-
+    
+    # Here we can specify the default options for different renderers
+    def rendering_options(engine)
+      case engine.name
+      when /Redcarpet/
+        {
+          :no_intra_emphasis => true,
+          :tables => true,
+          :fenced_code_blocks => true,
+          :autolink => true,
+          :strikethrough => true,
+          :lax_html_blocks => true,
+          :space_after_headers => true,
+          :superscript => false
+        }
+      end
+    end
+    
+    def tilt_render(file, locals = {}, &block)
+      Tilt.new(file, 1, rendering_options(Tilt[file]) || {})
+        .render(Gmd::ExtraBinding, locals, &block)
+        .force_encoding("UTF-8")
+    end
+    
   end
+  
+  class ExtraBinding
+    class << self
+    
+      include Helpers
+      
+      def method_missing(method_sym, *arguments, &block)
+        if Gmd.respond_to?(method_sym)
+          Gmd.__send__(method_sym, *arguments, &block)
+        else
+          super
+        end
+      end
+      
+      def respond_to?(method_sym)
+        super || Gmd.respond_to?(method_sym)
+      end
+    end
+  end
+  
 end
