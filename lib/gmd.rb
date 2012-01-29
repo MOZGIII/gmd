@@ -92,7 +92,10 @@ module Gmd
           :strikethrough => true,
           :lax_html_blocks => true,
           :space_after_headers => true,
-          :superscript => false
+          :superscript => false,
+          :renderer => Redcarpet::Render::SmartyHTML.new({
+            :with_toc_data => true
+          })
         }
       end
     end
@@ -121,6 +124,7 @@ module Gmd
       def respond_to?(method_sym)
         super || Gmd.respond_to?(method_sym)
       end
+      
     end
   end
   
